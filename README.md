@@ -1,1 +1,1 @@
-# RateMyProfessor
+# MenuRatings
