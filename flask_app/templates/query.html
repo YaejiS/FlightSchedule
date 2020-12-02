@@ -1,0 +1,30 @@
+{% extends "header.html" %} {% block content %} {% if error_msg %}
+<p>{{ error_msg }}</p>
+{% endif %}
+
+<div class="container-fluid">
+  {% for result in results %}
+  <div class="media">
+    <!--<img src="{{ result.poster_url }}" class="mr-3 movie" alt="missing" />-->
+    <div class="media-body">
+      <h5 class="mt-0">
+       
+        Country: ({{ result.country }}) <br>
+        From: ({{ result.originplace }}) <br>
+        To: ({{ result.destinationplace }}) <br>
+        Date: ({{ result.outboundpartialdate}}) <br>
+        Price: ({{ result.minprice}}) <br>
+        <a href="{{ url_for('flights.flight_detail', originplace=result.originplace,
+        destinationplace=result.destinationplace,
+        outboundpartialdate=result.outboundpartialdate,
+        minprice=result.minprice) }}"
+          >Book this flight!</a
+        >
+        <br>
+      </h5>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
