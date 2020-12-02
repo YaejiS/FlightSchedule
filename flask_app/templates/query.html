@@ -9,11 +9,11 @@
     <div class="media-body">
       <h5 class="mt-0">
        
-        Country: ({{ result.country }}) <br>
-        From: ({{ result.originplace }}) <br>
-        To: ({{ result.destinationplace }}) <br>
-        Date: ({{ result.outboundpartialdate}}) <br>
-        Price: ({{ result.minprice}}) <br>
+        Country: {{ result.country }} <br>
+        From: {{ result.originplace }} <br>
+        To: {{ result.destinationplace }} <br>
+        Date: {{ result.outboundpartialdate}} <br>
+        Price: ${{ result.minprice}} <br>
         <a href="{{ url_for('flights.flight_detail', originplace=result.originplace,
         destinationplace=result.destinationplace,
         outboundpartialdate=result.outboundpartialdate,

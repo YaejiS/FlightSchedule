@@ -30,6 +30,7 @@ def query_results(country, originplace, destinationplace, outboundpartialdate):
                                        destinationplace, outboundpartialdate)
     except ValueError as e:
         flash(str(e))
+        # return redirect(url_for(""))
         return redirect(url_for("flights.index"))
 
     return render_template("query.html", results=results)

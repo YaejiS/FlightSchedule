@@ -35,7 +35,7 @@ class FlightClient(object):
 
         if resp.status_code != 200:
             raise ValueError(
-                "Search request failed; make sure your API key is correct and authorized"
+                "Search request failed; Please make sure that all your inputs are correct"
             )
 
         data = resp.json()
