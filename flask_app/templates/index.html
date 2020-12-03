@@ -21,6 +21,10 @@
                 <input id="currentTime" />
             </div>
 
+            <div class="group-fields">
+                <label for="searchairport">Search 3-letter airplane code by typing in city or airport name </label>
+                <input id="searchairport" />
+            </div>
             {{ form.csrf_token }}
             <div class="form-group">
                 {{ form.originplace(class="form-control", placeholder="From") }}
@@ -108,7 +112,7 @@
 
     var fuse = new Fuse(airports, options)
 
-    var ac = $('#originplace')
+    var ac = $('#searchairport')
     .on('click', function(e) {
         e.stopPropagation();
     })
