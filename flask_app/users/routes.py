@@ -1,9 +1,14 @@
-from flask import Blueprint, redirect, url_for, render_template, flash, request
+from flask import Blueprint, redirect, url_for, render_template, flash, request, session
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
 from ..models import User
+
+import pyotp
+import qrcode
+import qrcode.image.svg as svg
+from io import BytesIO
 
 users = Blueprint('users', __name__, static_folder='static',
                   template_folder='templates')
@@ -21,6 +26,9 @@ def register():
         user = User(username=form.username.data,
                     email=form.email.data, password=hashed)
         user.save()
+
+        session['username'] = user.username
+        return redirect(url_for('users.tfa'))
 
         return redirect(url_for("users.login"))
 
@@ -71,3 +79,39 @@ def account():
         title="Account",
         username_form=username_form,
     )
+
+@users.route('/twofactor')
+def tfa():
+    if 'username' not in session:
+        return redirect(url_for('flights.index'))
+
+    headers = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+
+    return render_template('tfa.html'), headers
+
+
+@users.route("/qr_code")
+def qr_code():
+    if 'username' not in session:
+        return redirect(url_for('flights.index'))
+    
+    user = User.objects(username=session['username']).first()
+    session.pop('username')
+
+    uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name=user.username, issuer_name='CMSC388J-2FA')
+    img = qrcode.make(uri, image_factory=svg.SvgPathImage)
+    stream = BytesIO()
+    img.save(stream)
+
+    headers = {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+    
+    return stream.getvalue(), headers

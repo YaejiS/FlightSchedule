@@ -17,6 +17,7 @@ from wtforms.validators import (
 # from datetime import datetimefield
 # from flask.ext.admin.form import DateTimeField, DateTimePickerWidget
 from .models import User
+import pyotp
 
 
 class SearchForm(FlaskForm):
@@ -72,7 +73,15 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
+    token = StringField('Token', validators=[InputRequired(), Length(min=6, max=6)])
     submit = SubmitField("Login")
+
+    def validate_token(self, token):
+        user = User.objects(username=self.username.data).first()
+        if user is not None:
+            tok_verified = pyotp.TOTP(user.otp_secret).verify(token.data)
+            if not tok_verified:
+                raise ValidationError("Invalid Token")
 
 
 class UpdateUsernameForm(FlaskForm):
