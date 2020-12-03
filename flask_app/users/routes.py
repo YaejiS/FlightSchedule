@@ -102,7 +102,7 @@ def qr_code():
     user = User.objects(username=session['username']).first()
     session.pop('username')
 
-    uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name=user.username, issuer_name='CMSC388J-2FA')
+    uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name=user.username, issuer_name='FlightSchedule')
     img = qrcode.make(uri, image_factory=svg.SvgPathImage)
     stream = BytesIO()
     img.save(stream)
