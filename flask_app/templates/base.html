@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <meta name="theme-color" content="#0770e3"> -->
+    <meta name="theme-color" content="#0770e3">
 
     <link
       rel="stylesheet"
@@ -17,28 +17,156 @@
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
-    <title>Movie Reviews</title>
+    <title>Flight Scheduler</title>
     {% endif %}
+
+    <link href="http://cdn-na.infragistics.com/igniteui/2020.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2020.1/latest/css/structure/infragistics.css" rel="stylesheet" />
+    <style>
+        h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .group-fields {
+            margin-bottom: 10px;
+        }
+
+        .group-fields label {
+            display: block;
+            line-height: 18px;
+        }
+
+        .group-fields .inline {
+            display: inline;
+        }
+
+        .group-fields .ui-igcheckbox-normal {
+            margin-right: 5px;
+            float: left;
+        }
+
+        .group-fields .ui-igedit-container {
+            width: 230px;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .group-fields.clearfix > div {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .autocomplete-wrapper {
+            position: relative;
+  
+        input {
+            width: 100%;
+        }
+
+        .autocomplete-results {
+            position: absolute;
+            background: white;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            font-size: 13px;
+            border: solid 1px #ddd;
+            border-top-width: 0;
+            border-bottom-color: #ccc;
+            box-shadow: 
+                0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .autocomplete-result {
+            padding: 12px 15px;
+            border-bottom: solid 1px #eee;
+            cursor: pointer;
+        }
+
+        .autocomplete-result:last-child {
+            border-bottom-width: 0;
+        }
+
+        .autocomplete-location {
+            opacity: .8;
+            font-size: smaller;
+        }
+
+        $iPlus: 0;
+        @for $i from 0 through 7 {
+            $iPlus: $i + 1;
+            .autocomplete-results[data-highlight='#{$i}'] > :nth-child(#{$iPlus}) {
+                color: white;
+                background: #26C9FF;
+                border-bottom-color: #26C9FF;
+                outline: solid 1px darken(#26C9FF, 10%);
+            }
+        }
+    </style>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"
+    ></script>
+    <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"
+    ></script>
+    <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"
+    ></script>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <script src="http://cdn-na.infragistics.com/igniteui/2020.1/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2020.1/latest/js/infragistics.lob.js"></script>
+
   </head>
   <body>
+    
     {% block header %}
     <h1>Overrideable Content</h1>
     {% endblock %}
+    <!-- <h3>Book your flight</h3>
+    <div class="group-fields">
+        <label for="currentTime">Right now it is</label>
+        <input id="currentTime" />
+    </div>
+    <div class="group-fields clearfix">
+        <div>
+            <label for="departure">Departure</label>
+            <input id="departure" />
+        </div>
+        <div>
+            <label for="departureTime">Around</label>
+            <input id="departureTime" />
+        </div>
+    </div>
+    <div class="group-fields clearfix">
+        <div>
+            <label for="return">Return</label>
+            <input id="return" />
+        </div>
+        <div>
+            <label for="returnTime">Around</label>
+            <input id="returnTime" />
+        </div>
+    </div>
+    <div class="group-fields">
+        <input id="oneWayTicket" />
+        <label for="oneWayTicket">One way ticket</label>
+    </div> -->
 
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

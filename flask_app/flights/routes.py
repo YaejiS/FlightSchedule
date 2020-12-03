@@ -16,7 +16,7 @@ def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("flights.query_results", country=form.country.data, originplace=form.originplace.data,
+        return redirect(url_for("flights.query_results", country="us", originplace=form.originplace.data,
                                 destinationplace=form.destinationplace.data,
                                 outboundpartialdate=form.outboundpartialdate.data))
 

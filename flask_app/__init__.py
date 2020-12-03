@@ -10,6 +10,9 @@ from flask_login import (
 )
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
+# from flask_bootstrap import Bootstrap
+# from flask_wtf import Form
+# from wtforms.fields import DateField
 
 # stdlib
 from datetime import datetime
@@ -37,6 +40,8 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config.from_pyfile("config.py", silent=False)
+    # Bootstrap(app)
+
     if test_config is not None:
         app.config.update(test_config)
 

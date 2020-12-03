@@ -1,17 +1,16 @@
 {% extends "header.html" %} {% block content %}
 <div class="row">
-  <div class="col">
+  <!-- <div class="col">
     <img class="propic" src="data:image/png;base64,{{image}}" alt="image" />
-  </div>
+  </div> -->
   <div class="col">
-    <h2>{{ username }}'s Schedules</h2>
+    <h1>{{ username }}'s Schedule</h1>
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <h1>
-      Schedules <small class="float-right">{{ schedules.count() }} schedules</small>
-    </h1>
+    <h2 class="float-right">{{ schedules.count() }} flights scheduled
+    </h2>
     <ul class="media-list">
       {% for schedule in schedules %}
       <li class="media review-item">

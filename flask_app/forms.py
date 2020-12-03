@@ -1,7 +1,9 @@
+# from flask_bootstrap import Bootstrap
 from flask_login import current_user
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, Form
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
+# from wtforms.fields import DateField
 from wtforms import StringField, IntegerField, SubmitField, TextAreaField, PasswordField
 from wtforms.validators import (
     InputRequired,
@@ -12,23 +14,32 @@ from wtforms.validators import (
     EqualTo,
     ValidationError,
 )
-
+# from datetime import datetimefield
+# from flask.ext.admin.form import DateTimeField, DateTimePickerWidget
 from .models import User
 
 
 class SearchForm(FlaskForm):
-    country = StringField(
-        "Country", validators=[InputRequired(), Length(min=2, max=2)]
-    )
+    # country = StringField(
+    #     "Country", validators=[InputRequired(), Length(min=2, max=2)]
+    # )
     originplace = StringField(
         "Origin", validators=[InputRequired(), Length(min=3, max=3)]
     )
     destinationplace = StringField(
         "Destination", validators=[InputRequired(), Length(min=3, max=3)]
     )
+    # outboundpartialdate = DateTimeField('Deprt', widget=DateTimePickerWidget())
+    # outboundpartialdate = DateField(DateField('Pick a Date', format="%m/%d/%Y"))
+
     outboundpartialdate = StringField(
-        "Date", validators=[InputRequired(), Length(min=1, max=100)]
+        "Depart Date", validators=[InputRequired(), Length(min=1, max=100)]
     )
+
+    returndate = StringField(
+        "Return Date", validators=[InputRequired(), Length(min=1, max=100)]
+    )
+    
     submit = SubmitField("Search")
 
 

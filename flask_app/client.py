@@ -3,7 +3,8 @@ import requests
 
 class Flight(object):
     def __init__(self, flight_json, country, originplace, destinationplace):
-        self.country = country
+        # self.country = country
+        self.country = "us"
         self.originplace = originplace
         self.destinationplace = destinationplace
         self.minprice = flight_json["MinPrice"]
@@ -28,9 +29,14 @@ class FlightClient(object):
         Only use this method if the user is using the search bar on the website.
         """
 
-        search_url = f"{country}/USD/en-US/{originplace}-sky/{destinationplace}-sky/{outboundpartialdate}"
+        search_url = f"us/USD/en-US/{originplace}-sky/{destinationplace}-sky/{outboundpartialdate}"
 
-        url = self.base_url + search_url
+        final_url = search_url[:-15]
+        # print(type(search_url))
+        # print("final url ", final_url)
+        # print(self.headers)
+
+        url = self.base_url + final_url
         resp = requests.request("GET", url, headers=self.headers)
 
         if resp.status_code != 200:
