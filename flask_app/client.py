@@ -1,4 +1,5 @@
 import requests
+from flask import Flask
 # from flask_app import create_app
 
 class Flight(object):
@@ -7,6 +8,7 @@ class Flight(object):
         self.country = "us"
         self.originplace = originplace
         self.destinationplace = destinationplace
+        
         self.minprice = flight_json["MinPrice"]
         self.outboundpartialdate = flight_json["OutboundLeg"]["DepartureDate"]
 
@@ -61,6 +63,10 @@ class FlightClient(object):
 ## -- Example usage -- ###
 if __name__ == "__main__":
     import os
+
+    app = Flask(__name__)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
 
     headers = {
         'x-rapidapi-key': "f511e4e457mshbb220780db8fe47p1fd209jsnd4a2de0f8ae8",
