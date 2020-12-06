@@ -1,2 +1,1 @@
-web: export FLASK_RUN_PORT=$PORT
-web: flask run
+web: flask run -h localhost -p $PORT
