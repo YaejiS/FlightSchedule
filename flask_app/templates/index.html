@@ -14,30 +14,53 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-
-            <h3>Book your flight</h3>
+            <div style="width:100%">
+                <h3 style="color:green">Book your flight</h3>
+            </div>
+            
             <div class="group-fields">
                 <label for="currentTime">Today's date and time: </label>
                 <input id="currentTime" />
             </div>
 
+            <div class="group-fields" style="width:100%">
+                <label for="searchairport">Search 3-letter airplane code by typing a city or airport name </label>
+                <input id="searchairport" />
+            </div>
             {{ form.csrf_token }}
-            <div class="form-group">
+
+            <div class="group-fields" style="width:100%">
+                <label>Depart: </label>
                 {{ form.originplace(class="form-control", placeholder="From") }}
             </div>
-            {{ form.destinationplace(class="form-control", placeholder="To") }}
-            <div class="group-fields clearfix">
+
+            <div class="group-fields" style="width:100%">
+                <label>Arrive: </label>
+                {{ form.destinationplace(class="form-control", placeholder="To") }}
+            </div>
+            <div class="group-fields" style="width:100%">
+                <label>Flight date: </label>
                 {{ form.outboundpartialdate(class="form-control", placeholder="Date") }}
             </div>
-            <div class="group-fields clearfix">
+            <div  class="group-fields" style="width:100%">
                 {{ form.returndate(class="form-control", placeholder="Return Date")}}
             </div>
 
             {{ form.submit(class="btn btn-outline-success") }}
         </form>
+
     </div>
     <div class="col">
-        <h2>Please use the search bar to search for flights! Then you can save them to your schedule</h2>
+        <h2 style="color:darkgreen">Please use the search bar to search for flights! Then you can save them to your schedule</h2>
+        <div>
+            <p>
+                <br>
+                <b style="color:rgb(94, 148, 33)">*** Example search ***</b>
+                <br>Depart: IAD
+                <br>Arrive: LAX
+                <br>Flight date: 2020-12-28
+            </p>
+        </div>
     </div>
 </div>
 
@@ -108,7 +131,7 @@
 
     var fuse = new Fuse(airports, options)
 
-    var ac = $('#originplace')
+    var ac = $('#searchairport')
     .on('click', function(e) {
         e.stopPropagation();
     })
