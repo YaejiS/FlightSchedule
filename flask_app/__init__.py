@@ -39,6 +39,8 @@ def page_not_found(e):
 def create_app(test_config=None):
     app = Flask(__name__)
 
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
     app.config.from_pyfile("config.py", silent=False)
     # Bootstrap(app)
 
