@@ -1,7 +1,8 @@
 from flask import Blueprint, redirect, url_for, render_template, flash, request, session
 from flask_login import current_user, login_required, login_user, logout_user
+from flask_mail import Mail, Message
 
-from .. import bcrypt
+from .. import bcrypt, mail
 from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
 from ..models import User
 
@@ -113,5 +114,13 @@ def qr_code():
         'Pragma': 'no-cache',
         'Expires': '0' # Expire immediately, so browser has to reverify everytime
     }
+
+    msg = Message("Hello from Flight Schedule", recipients=[user.email])
     
+    msg.html = """ 
+        <img src="{{ img }}" alt="QR Code for 2FA">
+    """
+    
+    mail.send(msg)
+        
     return stream.getvalue(), headers

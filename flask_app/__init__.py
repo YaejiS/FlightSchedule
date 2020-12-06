@@ -9,6 +9,8 @@ from flask_login import (
     login_required,
 )
 from flask_bcrypt import Bcrypt
+from flask_talisman import Talisman
+from flask_mail import Mail
 from werkzeug.utils import secure_filename
 # from flask_bootstrap import Bootstrap
 # from flask_wtf import Form
@@ -21,7 +23,7 @@ import os
 # local
 from .client import FlightClient
 
-
+mail = Mail()
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -44,6 +46,24 @@ def create_app(test_config=None):
 
     if test_config is not None:
         app.config.update(test_config)
+
+    csp = {
+        'default-src': ['\'self\'', '*.rapidapi.com/'],
+        'img-src': '*',
+        'media-src': '\'self\'',
+        'script-src': '\'self\''
+    }
+
+    Talisman(app, content_security_policy=csp)
+
+    app.config['MAIL_SERVER']='smtp.gmail.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USERNAME'] = 'cmsc388j@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'Cmsc388j!!!!'
+    app.config['MAIL_DEFAULT_SENDER'] = 'cmsc388j@gmail.com'
+    app.config['MAIL_USE_SSL'] = True
+
+    mail.init_app(app)    
 
     db.init_app(app)
     login_manager.init_app(app)
