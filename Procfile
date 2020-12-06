@@ -1,1 +1,1 @@
-web gunicorn run:app --log-file=-
+web: flask run -h 0.0.0.0 -p $PORT
