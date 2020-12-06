@@ -1,5 +1,5 @@
 import requests
-
+# from flask_app import create_app
 
 class Flight(object):
     def __init__(self, flight_json, country, originplace, destinationplace):
