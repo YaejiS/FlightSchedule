@@ -1,18 +1,6 @@
 {% extends "header.html" %}
 
 {% block content %}
-<div class="index-back" style="background-image: url('https://marketingweek.imgix.net/content/uploads/2019/09/23161802/skyscanner-featured.jpg?auto=compress,format&q=60&w=750&h=');
-background-repeat: no-repeat;
-background-size: cover;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-opacity: 50%;
-position: absolute;
-z-index: -1;
-width: 100%;
-height: 100%;"></div>
 <div class="row">   
     <div class="col" >
         <form action="/" class="form-inline my-2 my-lg-0" method="POST" >
@@ -42,12 +30,28 @@ height: 100%;"></div>
 
             <div class="group-fields" style="width:100%">
                 <label>Depart: </label>
-                {{ form.originplace(class="form-control", placeholder="From") }}
+                {{ form.originplace(class="form-control form-control-md", placeholder="From") }}
+
+                {% if form.originplace.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in form.originplace.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
 
             <div class="group-fields" style="width:100%">
                 <label>Arrive: </label>
                 {{ form.destinationplace(class="form-control", placeholder="To") }}
+
+                {% if form.destinationplace.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in form.destinationplace.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
             <div class="group-fields" style="width:100%">
                 <label>Flight date: </label>

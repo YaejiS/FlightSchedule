@@ -13,11 +13,13 @@ from wtforms.validators import (
     Email,
     EqualTo,
     ValidationError,
+    Regexp
 )
 # from datetime import datetimefield
 # from flask.ext.admin.form import DateTimeField, DateTimePickerWidget
 from .models import User
 import pyotp
+import re
 
 
 class SearchForm(FlaskForm):
@@ -25,13 +27,15 @@ class SearchForm(FlaskForm):
     #     "Country", validators=[InputRequired(), Length(min=2, max=2)]
     # )
     originplace = StringField(
-        "Origin", validators=[InputRequired(), Length(min=3, max=3)]
+        "Origin", validators=[InputRequired(), Length(min=3, max=3), Regexp('^\w+', message="Username must contain only letters numbers or underscore")]
     )
+
     destinationplace = StringField(
-        "Destination", validators=[InputRequired(), Length(min=3, max=3)]
+        "Destination", validators=[InputRequired(), Length(min=3, max=3), Regexp('^\w+')]
     )
     # outboundpartialdate = DateTimeField('Deprt', widget=DateTimePickerWidget())
     # outboundpartialdate = DateField(DateField('Pick a Date', format="%m/%d/%Y"))
+
 
     outboundpartialdate = StringField(
         "Depart Date", validators=[InputRequired(), Length(min=1, max=100)]
@@ -42,7 +46,6 @@ class SearchForm(FlaskForm):
     )
 
     submit = SubmitField("Search")
-
 
 class ConfirmForm(FlaskForm):
     submit = SubmitField("Confirm")

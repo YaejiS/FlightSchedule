@@ -6,8 +6,12 @@ from flask import Flask
 class Flight(object):
     def __init__(self, flight_json, country, originplace, destinationplace, carriers, places, airports):
         # self.country = country
+        originplace = originplace.upper()
+        destinationplace = destinationplace.upper()
         self.country = "US"
         self.originplace = originplace
+        print(self.originplace)
+        # originplace
         self.destinationplace = destinationplace
         self.minprice = flight_json["MinPrice"]
         self.outboundpartialdate = flight_json["OutboundLeg"]["DepartureDate"][:-9]
