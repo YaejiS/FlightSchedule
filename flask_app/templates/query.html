@@ -23,7 +23,7 @@
           <a href="{{ url_for('flights.flight_detail', originplace=result.originplace,
           destinationplace=result.destinationplace,
           outboundpartialdate=result.outboundpartialdate,
-          minprice=result.minprice) }}"
+          minprice=result.minprice, carrier=result.carrier, originairport=result.originairport, destinationairport=result.destinationairport) }}"
             >Add to Schedule</a
           ></button>
           <button type="button" class="btn btn-outline-primary">

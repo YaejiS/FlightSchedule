@@ -3,14 +3,13 @@
 {% endif %} {% if detail %} {# Display detail for your flight #}
 <div class="row">
   <div class="col">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <b>Country:</b> {{ detail.country }}
-      </li>
-      <li class="list-group-item"><b>From: </b> {{ detail.originplace }}</li>
-      <li class="list-group-item"><b>To: </b> {{ detail.destinationplace }}</li>
-      <li class="list-group-item"><b>Date: </b> {{ detail.outboundpartialdate }}</li>
-      <li class="list-group-item"><b>Price: $</b> {{ detail.minprice }}</li>
+    <ul class="list-group">
+      <li class="list-group-item">Country: {{ detail.country }}</li>
+      <li class="list-group-item">From: {{ detail.originplace }} ({{ detail.originairport }})</li>
+      <li class="list-group-item">To: {{ detail.destinationplace }} ({{ detail.destinationairport }})</li>
+      <li class="list-group-item">Carrier: {{ detail.carrier}}</li>
+      <li class="list-group-item">Date: {{ detail.outboundpartialdate}}</li>
+      <li class="list-group-item">Price: ${{ detail.minprice}}</li>
     </ul>
   </div>
 </div>

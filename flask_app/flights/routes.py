@@ -36,8 +36,9 @@ def query_results(country, originplace, destinationplace, outboundpartialdate):
     return render_template("query.html", results=results)
 
 
-@flights.route("/flights/<minprice>&<originplace>&<destinationplace>&<outboundpartialdate>", methods=["GET", "POST"])
-def flight_detail(minprice, originplace, destinationplace, outboundpartialdate):
+@flights.route("/flights/<minprice>&<originplace>&<destinationplace>&<outboundpartialdate>&<carrier>\
+&<originairport>&<destinationairport>", methods=["GET", "POST"])
+def flight_detail(minprice, originplace, destinationplace, outboundpartialdate, carrier, originairport, destinationairport):
     if current_user.is_authenticated == False:
         return redirect(url_for("users.login"))
 
@@ -48,6 +49,9 @@ def flight_detail(minprice, originplace, destinationplace, outboundpartialdate):
     detail["destinationplace"] = destinationplace
     detail["outboundpartialdate"] = outboundpartialdate
     detail["minprice"] = minprice
+    detail["carrier"] = carrier
+    detail["originairport"] = originairport
+    detail["destinationairport"] = destinationairport
     if form.validate_on_submit() and current_user.is_authenticated:
         schedule = Schedule(
             traveller=current_user._get_current_object(),
