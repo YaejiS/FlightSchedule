@@ -1,27 +1,37 @@
 {% extends "header.html" %} {% block content %} {% if error_msg %}
 <p>{{ error_msg }}</p>
 {% endif %}
-
+<h1>{{results[0].origincity}} -> {{results[0].destinationcity}}</h1>
 <div class="container-fluid">
   {% for result in results %}
-  <div class="media">
+  <div class="container mb-3 border border-info rounded" >
     <!--<img src="{{ result.poster_url }}" class="mr-3 movie" alt="missing" />-->
-    <div class="media-body">
-      <h5 class="mt-0">
-       
-        Country: {{ result.country }} <br>
-        From: {{ result.originplace }} <br>
-        To: {{ result.destinationplace }} <br>
-        Date: {{ result.outboundpartialdate}} <br>
-        Price: ${{ result.minprice}} <br>
-        <a href="{{ url_for('flights.flight_detail', originplace=result.originplace,
-        destinationplace=result.destinationplace,
-        outboundpartialdate=result.outboundpartialdate,
-        minprice=result.minprice) }}"
-          >Add to Schedule</a
-        >
-        <br>
-      </h5>
+    <div class="row mx-auto " >
+      <div class="col-8">
+        <ul class="list-group">
+          <li class="list-group-item">Country: {{ result.country }}</li>
+          <li class="list-group-item">From: {{ result.originplace }} ({{ result.originairport }})</li>
+          <li class="list-group-item">To: {{ result.destinationplace }} ({{ result.destinationairport }})</li>
+          <li class="list-group-item">Carrier: {{ result.carrier}}</li>
+          <li class="list-group-item">Date: {{ result.outboundpartialdate}}</li>
+          <li class="list-group-item">Price: ${{ result.minprice}}</li>
+        </ul>
+      </div>
+      
+      <div class="col-4 my-auto" align="center">
+        <button type="button" class="btn btn-outline-primary">
+          <a href="{{ url_for('flights.flight_detail', originplace=result.originplace,
+          destinationplace=result.destinationplace,
+          outboundpartialdate=result.outboundpartialdate,
+          minprice=result.minprice) }}"
+            >Add to Schedule</a
+          ></button>
+          <button type="button" class="btn btn-outline-primary">
+            <a href="{{ url_for('flights.carrier_detail', carrier=result.carrier) }}"
+              >Click here to see reviews about this flight!</a
+            ></button>
+        
+      </div>
     </div>
   </div>
   {% endfor %}

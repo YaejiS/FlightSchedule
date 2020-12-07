@@ -40,12 +40,19 @@ class SearchForm(FlaskForm):
     returndate = StringField(
         "Return Date", validators=[InputRequired(), Length(min=1, max=100)]
     )
-    
+
     submit = SubmitField("Search")
 
 
 class ConfirmForm(FlaskForm):
     submit = SubmitField("Confirm")
+
+
+class ReviewForm(FlaskForm):
+    text = TextAreaField(
+        "Comment", validators=[InputRequired(), Length(min=5, max=500)]
+    )
+    submit = SubmitField("Enter Comment")
 
 
 class RegistrationForm(FlaskForm):
@@ -73,7 +80,8 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
-    token = StringField('Token', validators=[InputRequired(), Length(min=6, max=6)])
+    token = StringField('Token', validators=[
+                        InputRequired(), Length(min=6, max=6)])
     submit = SubmitField("Login")
 
     def validate_token(self, token):
