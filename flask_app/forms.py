@@ -20,6 +20,7 @@ from wtforms.validators import (
 from .models import User
 import pyotp
 import re
+from string import ascii_lowercase, digits
 
 
 class SearchForm(FlaskForm):
@@ -52,18 +53,20 @@ class ConfirmForm(FlaskForm):
 
 
 class ReviewForm(FlaskForm):
-    text = TextAreaField(
-        "Comment", validators=[InputRequired(), Length(min=5, max=500)]
-    )
+    text = TextAreaField("Comment", validators=[InputRequired(), Length(min=5, max=500)])
     submit = SubmitField("Enter Comment")
-
 
 class RegistrationForm(FlaskForm):
     username = StringField(
         "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
-    email = StringField("Email", validators=[InputRequired(), Email()])
-    password = PasswordField("Password", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired(), Email()]
+    )
+    password = PasswordField(
+        "Password", validators=[InputRequired()]
+    )
+
+    
     confirm_password = PasswordField(
         "Confirm Password", validators=[InputRequired(), EqualTo("password")]
     )
@@ -78,6 +81,16 @@ class RegistrationForm(FlaskForm):
         user = User.objects(email=email.data).first()
         if user is not None:
             raise ValidationError("Email is taken")
+    
+    def validate_password(self, password):
+        reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$,.^!%*#?&])[A-Za-z\d@$,.^!#%*?&]{8,32}$"
+
+        # SpecialSym =['$', '@', '#', '%', ',', '.', '^'] 
+        # user = User.objects(password=password.data).first()
+        print(password.data)
+        if (len(password.data) < 8 and len(password.data) > 32) or re.search(re.compile(reg), password.data) is None:
+            print('not meet password requirement')
+            raise ValidationError("Password must include the following: between 8 and 32 characters long, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 number, and at least 1 special character i.e. @$,.^!%*#?&")
 
 
 class LoginForm(FlaskForm):
