@@ -87,7 +87,7 @@ class RegistrationForm(FlaskForm):
 
         # SpecialSym =['$', '@', '#', '%', ',', '.', '^'] 
         # user = User.objects(password=password.data).first()
-        print(password.data)
+        # print(password.data)
         if (len(password.data) < 8 and len(password.data) > 32) or re.search(re.compile(reg), password.data) is None:
             print('not meet password requirement')
             raise ValidationError("Password must include the following: between 8 and 32 characters long, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 number, and at least 1 special character i.e. @$,.^!%*#?&")
