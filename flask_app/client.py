@@ -10,7 +10,7 @@ class Flight(object):
         destinationplace = destinationplace.upper()
         self.country = "US"
         self.originplace = originplace
-        print(self.originplace)
+        # print(self.originplace)
         # originplace
         self.destinationplace = destinationplace
         self.minprice = flight_json["MinPrice"]
@@ -50,6 +50,8 @@ class FlightClient(object):
 
         url = self.base_url + final_url
         resp = requests.request("GET", url, headers=self.headers)
+
+        print("\n{}", url)
 
         if resp.status_code != 200:
             raise ValueError(
