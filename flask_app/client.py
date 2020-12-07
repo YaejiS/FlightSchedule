@@ -84,7 +84,13 @@ class FlightClient(object):
 if __name__ == "__main__":
     import os
 
+<<<<<<< HEAD
     app = Flask(__name__)
+=======
+    # app = Flask(__name__)
+    # port = int(os.environ.get("PORT", 5000))
+    # app.run(debug=True, host='0.0.0.0', port=port)
+>>>>>>> 67c4b6a2791bfcd96c37abdb110286bee9bafc73
 
     headers = {
         'x-rapidapi-key': "f511e4e457mshbb220780db8fe47p1fd209jsnd4a2de0f8ae8",
