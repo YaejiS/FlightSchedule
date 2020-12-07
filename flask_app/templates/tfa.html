@@ -1,15 +1,17 @@
 {% extends "header.html" %}
 {% block content %}
     <div>
-        <h2>Two-Factor Auth Enrollment</h2>
+        <h2>Two-Factor Authentication Enrollment</h2>
     </div>
     <div>
         This website requires mandatory 2FA enrollment. 
     </div>
     <!-- Registration Form: -->
     <p>
-        Use an authenticator app such as DuoMobile to enroll with us! You will need to use this app to login in the future.
+        Use an authenticator app such as DuoMobile to enroll with us! You will need to use this app to login in the future. <font color="red"><b>Do not leave this page until you scan the QR code. </b></font> You will not be able to return to this page once you leave.
     </p>
+
+    <h3></h3>
     <img src={{ url_for("users.qr_code") }} alt="QR Code for 2FA">
 
     <div>
