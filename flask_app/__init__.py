@@ -66,7 +66,7 @@ def create_app(test_config=None):
         'img-src': '*',
     }
 
-    talisman.init_app(app, content_security_policy=csp)
+    # talisman.init_app(app, content_security_policy=csp)
 
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
