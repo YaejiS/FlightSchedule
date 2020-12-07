@@ -118,7 +118,7 @@ def qr_code():
     msg = Message("Hello from Flight Schedule", recipients=[user.email])
     
     msg.html = """ 
-        <img src="{{ img }}" alt="QR Code for 2FA">
+        <img src="{{ stream.getvalue() }}">
     """
     
     mail.send(msg)

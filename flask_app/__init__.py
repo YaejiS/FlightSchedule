@@ -24,6 +24,7 @@ import os
 from .client import FlightClient
 
 mail = Mail()
+talisman = Talisman()
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -49,10 +50,23 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     csp = {
-        'default-src': '*'
+        'default-src': [
+            '\'self\'',
+            '\'unsafe-inline\'',
+            'stackpath.bootstrapcdn.com',
+            'code.jquery.com',
+            'cdn.jsdelivr.net',
+            'cdn-na.infragistics.com',
+            'cdn.jsdelivr.net',
+            'cdnjs.cloudflare.com',
+            'unpkg.com', 
+            'screenfeedcontent.blob.core.windows.net',
+            'ajax.aspnetcdn.com',
+            'use.fontawesome.com'],
+        'img-src': '*',
     }
 
-    Talisman(app, content_security_policy=csp)
+    talisman.init_app(app, content_security_policy=csp)
 
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
