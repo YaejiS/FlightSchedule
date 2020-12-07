@@ -49,10 +49,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     csp = {
-        'default-src': ['\'self\'', '*.rapidapi.com/'],
-        'img-src': '*',
-        'media-src': '\'self\'',
-        'script-src': '\'self\''
+        'default-src': '*'
     }
 
     Talisman(app, content_security_policy=csp)
