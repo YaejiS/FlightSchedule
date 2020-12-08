@@ -57,7 +57,6 @@ def create_app(test_config=None):
             'code.jquery.com',
             'cdn.jsdelivr.net',
             'cdn-na.infragistics.com',
-            'cdn.jsdelivr.net',
             'cdnjs.cloudflare.com',
             'unpkg.com', 
             'screenfeedcontent.blob.core.windows.net',
