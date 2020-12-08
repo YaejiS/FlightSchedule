@@ -9,6 +9,7 @@ from ..models import User
 import pyotp
 import qrcode
 import qrcode.image.svg as svg
+import qrcode.image.pil as pil
 from io import BytesIO
 
 users = Blueprint('users', __name__, static_folder='static',
@@ -115,11 +116,12 @@ def qr_code():
         'Expires': '0' # Expire immediately, so browser has to reverify everytime
     }
 
+    code = qrcode.make(uri, image_factory=pil.PilImage)
+
     msg = Message("Hello from Flight Schedule", recipients=[user.email])
     
-    msg.html = """ 
-        <img src="{{ stream.getvalue() }}">
-    """
+    msg.attach("img.png", 'image/png', code.tobytes())
+
     
     mail.send(msg)
         
