@@ -51,7 +51,7 @@ class FlightClient(object):
         url = self.base_url + final_url
         resp = requests.request("GET", url, headers=self.headers)
 
-        print("\n{}", url)
+        print("\n", url, "\n")
 
         if resp.status_code != 200:
             raise ValueError(
