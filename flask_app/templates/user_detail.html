@@ -4,12 +4,12 @@
     <img class="propic" src="data:image/png;base64,{{image}}" alt="image" />
   </div> -->
   <div class="col">
-    <h1>{{ username }}'s Schedule</h1>
+    <h1 style="color:darkgreen">{{ username }}'s Schedule</h1>
+    <h2 class="float-left" style="color:green">Number of Flights: {{ schedules.count() }}
   </div>
 </div>
 <div class="row">
   <div class="col">
-    <h2 class="float-right">{{ schedules.count() }} flights scheduled
     </h2>
     <ul class="media-list">
       {% for schedule in schedules %}

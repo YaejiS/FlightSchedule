@@ -1,18 +1,6 @@
 {% extends "header.html" %}
 
 {% block content %}
-<div class="index-back" style="background-image: url('https://marketingweek.imgix.net/content/uploads/2019/09/23161802/skyscanner-featured.jpg?auto=compress,format&q=60&w=750&h=');
-background-repeat: no-repeat;
-background-size: cover;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-opacity: 50%;
-position: absolute;
-z-index: -1;
-width: 100%;
-height: 100%;"></div>
 <div class="row">   
     <div class="col" >
         <form action="/" class="form-inline my-2 my-lg-0" method="POST" >
@@ -42,12 +30,28 @@ height: 100%;"></div>
 
             <div class="group-fields" style="width:100%">
                 <label>Depart: </label>
-                {{ form.originplace(class="form-control", placeholder="From") }}
+                {{ form.originplace(class="form-control form-control-md", placeholder="From") }}
+
+                {% if form.originplace.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in form.originplace.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
 
             <div class="group-fields" style="width:100%">
                 <label>Arrive: </label>
                 {{ form.destinationplace(class="form-control", placeholder="To") }}
+
+                {% if form.destinationplace.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in form.destinationplace.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
             <div class="group-fields" style="width:100%">
                 <label>Flight date: </label>
@@ -75,174 +79,8 @@ height: 100%;"></div>
     </div>
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        
-        var today = new Date(),
-        tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-
-        $("#currentTime").igDateEditor({
-            dateInputFormat: "dateTime",
-            value: new Date(),
-            dataMode: "date",
-            readOnly: true
-        });
-
-        $("#outboundpartialdate").igDatePicker({
-            dateInputFormat: "yyyy-MM-dd",
-            value: today,
-            regional: "en-US",
-            dataMode: "date",
-            datepickerOptions: {
-                minDate: today
-                    },
-            valueChanged: function (evt, ui) {
-                if (ui.newValue instanceof Date) {
-                    var nextDay = new Date(ui.newValue.getTime() + 24 * 60 * 60 * 1000);
-                    var currentValue = $("#returndate").igDatePicker("option", "value");
-                    if (currentValue.getTime() > nextDay.getTime()) {
-                        $("#returndate").igDatePicker("option", "datepickerOptions", {
-                            minDate: nextDay
-                        }).igDatePicker("option", "value", nextDay)
-                    } else {
-                        $("#returndate").igDatePicker("option", "value", nextDay).igDatePicker("option", "datepickerOptions", {
-                            minDate: nextDay
-                        })
-                    }
-                }
-             }
-        });
-        $("#returndate").igDatePicker({
-            value: tomorrow,
-            dateInputFormat: "yyyy-MM-dd",
-            regional: "en-US",
-            dataMode: "date",
-                datepickerOptions: {
-                    minDate: tomorrow,
-                    numberOfMonths: [1, 2]
-                }
-        });
-    });
-
-    var options = {
-        shouldSort: true,
-        threshold: 0.4,
-        maxPatternLength: 32,
-        keys: [{
-            name: 'iata',
-            weight: 0.5
-        }, {
-            name: 'name',
-            weight: 0.3
-        }, {
-            name: 'city',
-            weight: 0.2
-        }]
-    };
-
-    var fuse = new Fuse(airports, options)
-
-    var ac = $('#searchairport')
-    .on('click', function(e) {
-        e.stopPropagation();
-    })
-    .on('focus keyup', search)
-    .on('keydown', onKeyDown);
-
-    var wrap = $('<div>')
-    .addClass('autocomplete-wrapper')
-    .insertBefore(ac)
-    .append(ac);
-
-    var list = $('<div>')
-    .addClass('autocomplete-results')
-    .on('click', '.autocomplete-result', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        selectIndex($(this).data('index'));
-    })
-    .appendTo(wrap);
-
-    $(document)
-    .on('mouseover', '.autocomplete-result', function(e) {
-        var index = parseInt($(this).data('index'), 10);
-        if (!isNaN(index)) {
-        list.attr('data-highlight', index);
-        }
-    })
-    .on('click', clearResults);
-
-    function clearResults() {
-    results = [];
-    numResults = 0;
-    list.empty();
-    }
-
-    function selectIndex(index) {
-    if (results.length >= index + 1) {
-        ac.val(results[index].iata);
-        clearResults();
-    }  
-    }
-
-    var results = [];
-    var numResults = 0;
-    var selectedIndex = -1;
-
-    function search(e) {
-    if (e.which === 38 || e.which === 13 || e.which === 40) {
-        return;
-    }
-    
-    if (ac.val().length > 0) {
-        results = _.take(fuse.search(ac.val()), 7);
-        numResults = results.length;
-        
-        var divs = results.map(function(r, i) {
-            return '<div class="autocomplete-result" data-index="'+ i +'">'
-                + '<div><b>'+ r.iata +'</b> - '+ r.name +'</div>'
-                + '<div class="autocomplete-location">'+ r.city +', '+ r.country +'</div>'
-                + '</div>';
-        });
-        
-        selectedIndex = -1;
-        list.html(divs.join(''))
-        .attr('data-highlight', selectedIndex);
-
-    } else {
-        numResults = 0;
-        list.empty();
-    }
-    }
-
-function onKeyDown(e) {
-    switch(e.which) {
-        case 38: // up
-        selectedIndex--;
-        if (selectedIndex <= -1) {
-            selectedIndex = -1;
-        }
-        list.attr('data-highlight', selectedIndex);
-        break;
-        case 13: // enter
-        selectIndex(selectedIndex);
-        break;
-        case 9: // enter
-        selectIndex(selectedIndex);
-        e.stopPropagation();
-        return;
-        case 40: // down
-        selectedIndex++;
-        if (selectedIndex >= numResults) {
-            selectedIndex = numResults-1;
-        }
-        list.attr('data-highlight', selectedIndex);
-        break;
-
-        default: return; // exit this handler for other keys
-    }
-    e.stopPropagation();
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-}
+<!-- <script src="{{url_for('static', filename='calendar.js' )}}"> -->
+<script type="text/javascript" src="static/calendar.js">
+    // console.log("uh");
 </script>
 {% endblock %}
