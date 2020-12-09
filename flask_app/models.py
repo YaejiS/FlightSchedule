@@ -43,6 +43,7 @@ class Schedule(db.Document):
         required=True, min_length=3, max_length=3)
     departure_date = db.StringField(required=True)
     price = db.StringField(required=True)
+    carrier = db.StringField(required=True)
 
 
 class Review(db.Document):
