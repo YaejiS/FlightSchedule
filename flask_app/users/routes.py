@@ -32,8 +32,6 @@ def register():
         session['username'] = user.username
         return redirect(url_for('users.tfa'))
 
-        return redirect(url_for("users.login"))
-
     return render_template("register.html", title="Register", form=form)
 
 
