@@ -42,8 +42,6 @@ def page_not_found(e):
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
-
     # app.run(debug=True, port=33507)
     app.config.from_pyfile("config.py", silent=False)
     # Bootstrap(app)
