@@ -10,7 +10,9 @@ import pyotp
 import qrcode
 import qrcode.image.svg as svg
 import qrcode.image.pil as pil
-from io import BytesIO
+from io import BytesIO, StringIO
+import base64
+
 
 users = Blueprint('users', __name__, static_folder='static',
                   template_folder='templates')
@@ -31,8 +33,6 @@ def register():
 
         session['username'] = user.username
         return redirect(url_for('users.tfa'))
-
-        return redirect(url_for("users.login"))
 
     return render_template("register.html", title="Register", form=form)
 
@@ -116,13 +116,13 @@ def qr_code():
         'Expires': '0' # Expire immediately, so browser has to reverify everytime
     }
 
-    #code = qrcode.make(uri, image_factory=pil.PilImage)
+    code = qrcode.make(uri, image_factory=pil.PilImage)
 
-    #msg = Message("Hello from Flight Schedule", recipients=[user.email])
+    msg = Message("Hello from Flight Schedule", recipients=[user.email])
     
-    #msg.attach("img.png", 'image/png', code.tobytes())
+    msg.html = render_template("qrcode.html", code=code.tobytes())
 
     
-    #mail.send(msg)
+    mail.send(msg)
         
     return stream.getvalue(), headers

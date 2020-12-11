@@ -33,6 +33,10 @@ def query_results(country, originplace, destinationplace, outboundpartialdate):
         # return redirect(url_for(""))
         return redirect(url_for("flights.index"))
 
+    if len(results) == 0:
+        flash("No flights found")
+        return redirect(url_for("flights.index"))
+
     return render_template("query.html", results=results)
 
 
@@ -58,7 +62,8 @@ def flight_detail(minprice, originplace, destinationplace, outboundpartialdate, 
             originplace=originplace,
             destinationplace=destinationplace,
             departure_date=outboundpartialdate,
-            price=minprice
+            price=minprice,
+            carrier=carrier
         )
         schedule.save()
         return redirect(url_for("flights.user_detail", username=current_user._get_current_object().username))
@@ -97,5 +102,6 @@ def carrier_detail(carrier):
 def user_detail(username):
     user = User.objects(username=username).first()
     schedules = Schedule.objects(traveller=user)
+    reviews = Review.objects(commenter=user)
 
-    return render_template("user_detail.html", username=username, schedules=schedules)
+    return render_template("user_detail.html", username=username, schedules=schedules, reviews=reviews)

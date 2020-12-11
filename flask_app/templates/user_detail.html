@@ -7,6 +7,10 @@
     <h1 style="color:darkgreen">{{ username }}'s Schedule</h1>
     <h2 class="float-left" style="color:green">Number of Flights: {{ schedules.count() }}
   </div>
+  <div class="col">
+    <h1 style="color:darkgreen">{{ username }}'s Reviews</h1>
+    <h2 class="float-left" style="color:green">Number of Reviews: {{ reviews.count() }}</h2>
+  </div>
 </div>
 <div class="row">
   <div class="col">
@@ -17,12 +21,27 @@
         <div class="media-body">
           From: {{ schedule.originplace }}<br>
           To: {{ schedule.destinationplace }}<br>
-          Price: {{ schedule.price }}<br>
+          Price: ${{ schedule.price }}<br>
+          Carrier: ${{ schedule.carrier }}<br>
           Date: {{ schedule.departure_date }}<br>
         </div>
       </li>
       {% endfor %}
     </ul>
   </div>
+  <div class="col">
+    <ul class="media-list">
+      {% for review in reviews %}
+      <li class="media review-item">
+        <div class="media-body">
+          Carrier: {{ review.carrier }}<br>
+          Review: {{ review.content }}<br>
+          Date: {{ review.date }}<br>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
+
 {% endblock %}

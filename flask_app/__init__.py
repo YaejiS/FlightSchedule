@@ -24,7 +24,7 @@ import os
 from .client import FlightClient
 
 mail = Mail()
-#talisman = Talisman()
+talisman = Talisman()
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -41,8 +41,6 @@ def page_not_found(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
-
-    app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
 
     # app.run(debug=True, port=33507)
     app.config.from_pyfile("config.py", silent=False)
@@ -67,7 +65,7 @@ def create_app(test_config=None):
         'img-src': '*',
     }
 
-    #talisman.init_app(app, content_security_policy=csp)
+    talisman.init_app(app, content_security_policy=csp)
 
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
