@@ -1,5 +1,5 @@
 # FlightSchedule App with Airline reviews
-### Hosted on https://flight-schedule-app.herokuapp.com/
+### Hosted on https://flight-schedule-app.herokuapp.com/ using MONGODB-ATLAS
 #
 
 Steps to run on your local machine:
@@ -41,5 +41,7 @@ A 2-factor authentication app such as DuoMobile is required to register an accou
 Login is required in order to save a flight or leave an airline review. While loggin in, if there is an invalid code error, you may need to get a new code from the app. Once logged in, the user is able to view the saved flights or reviews.
 
 ## Leave a review
+Any comments made on a flight could be seen by clicking "Click here to see your schedule and airport reviews" under Account page. Other users' reviews could be seen by clicking "Click here to see reviews about this flight!" button for each flight.
 
 ## Save a flight
+Any saved flight could be seen by clicking "Click here to see your schedule and airport reviews" under Account page.

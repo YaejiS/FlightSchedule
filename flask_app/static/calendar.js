@@ -1,7 +1,4 @@
-console.log("1");
-/* <script type="text/javascript"> */
 $(function () {
-   console.log("2");
    var today = new Date(),
    tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 
@@ -48,8 +45,6 @@ $(function () {
    });
 });
 
-console.log("3");
-
 var options = {
    shouldSort: true,
    threshold: 0.4,
@@ -91,7 +86,6 @@ var list = $('<div>')
 
 $(document)
 .on('mouseover', '.autocomplete-result', function(e) {
-   console.log("4");
    var index = parseInt($(this).data('index'), 10);
    if (!isNaN(index)) {
    list.attr('data-highlight', index);
@@ -174,4 +168,3 @@ function onKeyDown(e) {
    e.preventDefault(); // prevent the default action (scroll / move caret)
 
 }
-// </script>
