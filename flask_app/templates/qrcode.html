@@ -1,18 +1,22 @@
 {% block content %}
     <div>
-        <h2>Two-Factor Auth Enrollment</h2>
+        <h2>Welcome to Flight Schedule</h2>
     </div>
     <div>
-        This website requires mandatory 2FA enrollment. 
+        You have successfully registred to Flight Schedule. 
+        Now, you can book for flights of your choice and leave reviews.
+        You can also view your reviews and record of your flights on your account page.  
     </div>
-    <!-- Registration Form: -->
+    <br>
     <p>
-        Use an authenticator app such as DuoMobile to enroll with us! You will need to use this app to login in the future.
+        If you have not already done so, please use an authenticator app such as DuoMobile to enroll with us!! 
+        Attached is the QRcode for the authenticator app if you missed it during registration process.
+        You will need to use this app to login in the future to get the token for the sign-in.
+        After completing this step, try loging in to your account to start your adventure!
     </p>
-    <img src="{{ code }}" alt="QR Code for 2FA">
-
-    <div>
-        When you're done, you can go to the <a href={{ url_for("users.login") }}>Login page</a>!
-    </div>
+    <br>
+    <p>
+        Again, thank you for joining our community and hope you enjoy our services.
+    </p>
 
 {% endblock %}

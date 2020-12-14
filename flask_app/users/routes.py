@@ -10,8 +10,7 @@ import pyotp
 import qrcode
 import qrcode.image.svg as svg
 import qrcode.image.pil as pil
-from io import BytesIO, StringIO
-import base64
+from io import BytesIO
 
 
 users = Blueprint('users', __name__, static_folder='static',
@@ -117,12 +116,16 @@ def qr_code():
     }
 
     code = qrcode.make(uri, image_factory=pil.PilImage)
-
+    email = BytesIO()
+    code.save(email, format='png')
+    email.seek(0)
+    
     msg = Message("Hello from Flight Schedule", recipients=[user.email])
-    
-    msg.html = render_template("qrcode.html", code=code.tobytes())
 
+    msg.html = render_template('qrcode.html')
     
+    msg.attach("qrcode.png", "image/png", email.read())
+
     mail.send(msg)
         
     return stream.getvalue(), headers
