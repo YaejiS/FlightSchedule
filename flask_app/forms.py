@@ -1,9 +1,7 @@
-# from flask_bootstrap import Bootstrap
 from flask_login import current_user
 from flask_wtf import FlaskForm, Form
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
-# from wtforms.fields import DateField
 from wtforms import StringField, IntegerField, SubmitField, TextAreaField, PasswordField
 from wtforms.validators import (
     InputRequired,
@@ -15,8 +13,6 @@ from wtforms.validators import (
     ValidationError,
     Regexp
 )
-# from datetime import datetimefield
-# from flask.ext.admin.form import DateTimeField, DateTimePickerWidget
 from .models import User
 import pyotp
 import re
@@ -24,9 +20,7 @@ from string import ascii_lowercase, digits
 
 
 class SearchForm(FlaskForm):
-    # country = StringField(
-    #     "Country", validators=[InputRequired(), Length(min=2, max=2)]
-    # )
+
     originplace = StringField(
         "Origin", validators=[InputRequired(), Length(min=3, max=3), Regexp('^\w+', message="Username must contain only letters numbers or underscore")]
     )
@@ -85,11 +79,7 @@ class RegistrationForm(FlaskForm):
     def validate_password(self, password):
         reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$,.^!%*#?&])[A-Za-z\d@$,.^!#%*?&]{8,32}$"
 
-        # SpecialSym =['$', '@', '#', '%', ',', '.', '^'] 
-        # user = User.objects(password=password.data).first()
-        # print(password.data)
         if (len(password.data) < 8 and len(password.data) > 32) or re.search(re.compile(reg), password.data) is None:
-            print('not meet password requirement')
             raise ValidationError("Password must include the following: between 8 and 32 characters long, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 number, and at least 1 special character i.e. @$,.^!%*#?&")
 
 
